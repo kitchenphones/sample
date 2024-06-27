@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Number Submission</title>
+</head>
+<body>
+    <header>
+        <h1>Submit Your Phone Number</h1>
+    </header>
+    <main>
+        <form id="phoneForm">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required>
+            <button type="submit">Submit</button>
+        </form>
+    </main>
+    <script>
+        document.getElementById('phoneForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            const response = await fetch('http://your-ec2-instance-public-dns:3000/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ phoneNumber }),
+            });
+            const data = await response.text();
+            alert(data);
+        });
+    </script>
+</body>
+</html>
